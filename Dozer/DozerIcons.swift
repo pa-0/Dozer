@@ -38,6 +38,9 @@ public final class DozerIcons {
             stopUserInteractionTimer()
             return
         }
+        if timerToCheckUserInteraction.isValid {
+            timerToCheckUserInteraction.invalidate()
+        }
         timerToCheckUserInteraction = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
             if self.isUserInteractingWithStatusBar() {
                 self.resetTimer()
