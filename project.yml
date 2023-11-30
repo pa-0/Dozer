@@ -5,6 +5,16 @@ options:
   createIntermediateGroups: true
   xcodeVersion: 10.2.1
   deploymentTarget: 10.13
+packages:
+  Defaults:
+    url: https://github.com/sindresorhus/Defaults
+    version: v3.2.2
+  Settings:
+    url: https://github.com/sindresorhus/Settings
+    version: 3.1.0
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    version: 1.27.1
 targets:
   Dozer:
     type: application
@@ -31,16 +41,20 @@ targets:
     settings:
       base:
         CODE_SIGN_ENTITLEMENTS: Dozer/Other/Dozer.entitlements
-        PRODUCT_BUNDLE_IDENTIFIER: "com.mortennn.Dozer"
+        PRODUCT_BUNDLE_IDENTIFIER: "dev.keks.Dozer"
         SWIFT_VERSION: 5
         DEBUG_INFORMATION_FORMAT: "dwarf-with-dsym"
         ENABLE_HARDENED_RUNTIME: true
         MACOSX_DEPLOYMENT_TARGET: 10.13
         VERSIONING_SYSTEM: apple-generic
-        CURRENT_PROJECT_VERSION: 30
+        CURRENT_PROJECT_VERSION: 31
     dependencies:
       - carthage: LaunchAtLogin
       - carthage: MASShortcut
+      - package: Defaults
+      - package: Settings
+      - package: Sparkle
+
 schemes:
   Dozer:
     build:
