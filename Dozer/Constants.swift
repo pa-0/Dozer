@@ -29,7 +29,7 @@ extension NSStoryboard.Name {
     static let preferences: NSStoryboard.Name = NSStoryboard.Name("Preferences")
 }
 
-extension Preferences.PaneIdentifier {
+extension Settings.PaneIdentifier {
     static let dozer = Self("dozer")
     static let general = Self("general")
 }

@@ -11,7 +11,7 @@ import Settings
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_: Notification) {
-        KeyboardShortcuts.onKeyUp(for: .ToggleMenuItems) { [self] in
+        KeyboardShortcuts.onKeyUp(for: .ToggleMenuItems) { [] in
             DozerIcons.shared.toggle()
         }
 
