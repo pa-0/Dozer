@@ -26,7 +26,7 @@ Make sure you have at least Xcode 10 installed.
 
 Run the following command:
 ```shell
-git clone https://github.com/mortennn/dozer &&
+git clone https://github.com/Schroedi/Dozer.git &&
 cd dozer &&
 make build
 ```
