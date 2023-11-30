@@ -9,10 +9,9 @@ import Settings
 final class Dozer: NSViewController, SettingsPane {
     let paneIdentifier = Settings.PaneIdentifier.general
     
-    var paneTitle: String = ""
+    var paneTitle: String = "Dozer"
     
     let preferencePaneIdentifier = Settings.PaneIdentifier.dozer
-    let preferencePaneTitle: String = "Dozer"
     let toolbarItemIcon = NSImage(named: "AppIcon")!
 
     override var nibName: NSNib.Name? { "Dozer" }

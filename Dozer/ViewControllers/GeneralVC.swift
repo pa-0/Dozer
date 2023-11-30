@@ -12,10 +12,9 @@ import Defaults
 final class General: NSViewController, SettingsPane {
     let paneIdentifier = Settings.PaneIdentifier.dozer
     
-    var paneTitle: String = ""
+    var paneTitle: String = "General"
     
     let preferencePaneIdentifier = Settings.PaneIdentifier.general
-    let preferencePaneTitle: String = "General"
     let toolbarItemIcon = NSImage(named: NSImage.preferencesGeneralName)!
 
     override var nibName: NSNib.Name? { "General" }
