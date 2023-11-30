@@ -3,7 +3,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 import Cocoa
-import MASShortcut
+import KeyboardShortcuts
 import Sparkle
 import Defaults
 import Settings
@@ -11,7 +11,7 @@ import Settings
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_: Notification) {
-        MASShortcutBinder.shared()?.bindShortcut(withDefaultsKey: UserDefaultKeys.Shortcuts.ToggleMenuItems) { () in
+        KeyboardShortcuts.onKeyUp(for: .ToggleMenuItems) { [self] in
             DozerIcons.shared.toggle()
         }
 

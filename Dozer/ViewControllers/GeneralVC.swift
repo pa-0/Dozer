@@ -4,7 +4,7 @@
 
 import Cocoa
 import Settings
-import MASShortcut
+import KeyboardShortcuts
 import LaunchAtLogin
 import Sparkle
 import Defaults
@@ -19,8 +19,6 @@ final class General: NSViewController, SettingsPane {
 
     override var nibName: NSNib.Name? { "General" }
 
-    fileprivate var userShortCut: MASShortcut!
-
     @IBOutlet private var LaunchAtLoginCheckbox: NSButton!
     @IBOutlet private var CheckForUpdatesCheckbox: NSButton!
     @IBOutlet private var HideStatusBarIconsAtLaunchCheckbox: NSButton!
@@ -31,7 +29,7 @@ final class General: NSViewController, SettingsPane {
     @IBOutlet private var ShowIconAndMenuCheckbox: NSButton!
     @IBOutlet private var FontSizePopUpButton: NSPopUpButton!
     @IBOutlet private var ButtonPaddingPopUpButton: NSPopUpButton!
-    @IBOutlet private var ToggleMenuItemsView: MASShortcutView!
+    @IBOutlet private var ToggleMenuItemsView: NSView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,14 +52,13 @@ final class General: NSViewController, SettingsPane {
         FontSizePopUpButton.selectItem(withTitle: "\(Int(Defaults[.iconSize])) px")
         ButtonPaddingPopUpButton.selectItem(withTitle: "\(Int(Defaults[.buttonPadding])) px")
 
-        ToggleMenuItemsView.associatedUserDefaultsKey = UserDefaultKeys.Shortcuts.ToggleMenuItems
-        view.addSubview(ToggleMenuItemsView)
-        configureEnabledNoIconCheckbox()
-
-        ToggleMenuItemsView.shortcutValueChange = { _ -> Void in
-            self.userShortCut = self.ToggleMenuItemsView.shortcutValue
+        let recorder = KeyboardShortcuts.RecorderCocoa(for: .ToggleMenuItems, onChange:{ (shortcut: KeyboardShortcuts.Shortcut?) in
             self.configureEnabledNoIconCheckbox()
-        }
+        })
+        recorder.frame = ToggleMenuItemsView.bounds
+        ToggleMenuItemsView.addSubview(recorder)
+        
+        configureEnabledNoIconCheckbox()
     }
 
     @IBAction private func launchAtLoginClicked(_ sender: NSButton) {
@@ -111,7 +108,7 @@ final class General: NSViewController, SettingsPane {
 
     /// disables the noIcon-checkbox if no shortcut is set and keeps track whether shortcut is set
     private func configureEnabledNoIconCheckbox() {
-        if ToggleMenuItemsView.shortcutValue == nil {
+        if KeyboardShortcuts.getShortcut(for: .ToggleMenuItems) == nil {
             HideBothDozerIconsCheckbox.isEnabled = false
             Defaults[.isShortcutSet] = false
         } else {
